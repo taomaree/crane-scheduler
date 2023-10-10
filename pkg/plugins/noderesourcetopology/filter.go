@@ -21,7 +21,7 @@ func (tm *TopologyMatch) PreFilter(
 	ctx context.Context,
 	state *framework.CycleState,
 	pod *corev1.Pod,
-) (*framework.PreFilterResult, *framework.Status) {
+) *framework.Status {
 	var indices []int
 	if tm.topologyAwareResources.Has(string(corev1.ResourceCPU)) {
 		indices = GetPodTargetContainerIndices(pod)
@@ -33,7 +33,7 @@ func (tm *TopologyMatch) PreFilter(
 		targetContainerResource: resources,
 		podTopologyByNode:       make(map[string]*nodeWrapper),
 	})
-	return nil, nil
+	return nil
 }
 
 // PreFilterExtensions returns prefilter extensions, pod add and remove.
